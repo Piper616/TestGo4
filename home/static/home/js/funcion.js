@@ -1,6 +1,5 @@
-$(document).on('click','#btn-validar', () => {
-    let rut = $('#txt-rut').val();
-    console.log(rut);
+$(document).on('blur','#rut', () => { 
+    let rut = $('#rut').val();
     let validarRut = new ValidarRut(rut)
 
     if(validarRut.validado){
@@ -9,7 +8,7 @@ $(document).on('click','#btn-validar', () => {
     }
 
     $('#resultado').html(mensajeAlerta('danger','Rut Inválido'));
-        
+    
 })
 
 function mensajeAlerta(tipo, mensaje) {

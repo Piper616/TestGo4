@@ -36,4 +36,6 @@ urlpatterns = [
     path('actividadRealizada/', views.actividadRealizada, name='actividadRealizada'),
     path('api/', include(router.urls)),
     path('probar_rut/', views.probar_rut, name='probar_rut'),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] 
+
++ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

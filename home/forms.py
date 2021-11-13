@@ -18,13 +18,12 @@ class evaluadoForm(forms.ModelForm):
         existe = Evaluador.objects.filter(rut_evaluador=rut).exists()
 
         if existe:
-            print("Esta funcionando")
             raise ValidationError("Este rut ya existe")
 
         return rut
 
     id_evaluado = forms.CharField(label='Id', widget = forms.TextInput(attrs={"placeholder":"Ingrese Id"}))
-    rut_evaluado = forms.CharField(label='Rut Evaluado', widget = forms.TextInput(attrs={"placeholder":"ej: 11.111.111-1"}))
+    rut_evaluado = forms.CharField(label='Rut Evaluado', widget = forms.TextInput(attrs={"placeholder":"ej: 11.111.111-1", "id":"rut"}))
     nombres = forms.CharField(label='Nombre/s', widget = forms.TextInput(attrs={"placeholder":"Ingrese Nombre/s del evaluado"}))
     apellido_p = forms.CharField(label='Apellido Paterno', widget = forms.TextInput(attrs={"placeholder":"Ingrese apellido paterno"}))
     apellido_m = forms.CharField(label='Apellido Materno', widget = forms.TextInput(attrs={"placeholder":"Ingrese apellido materno"}))
@@ -70,13 +69,12 @@ class evaluadorForm(forms.ModelForm):
         existe = Evaluador.objects.filter(rut_evaluador=rut).exists()
 
         if existe:
-            print("Esta funcionando")
             raise ValidationError("Este rut ya existe")
 
         return rut
 
     id_evaluador = forms.CharField(label='Identificación', widget = forms.TextInput(attrs={"placeholder":"Ingrese Id"}))
-    rut_evaluador = forms.CharField(label='Rut', widget = forms.TextInput(attrs={"placeholder":"ej: 11.111.111-1"}))
+    rut_evaluador = forms.CharField(label='Rut', widget = forms.TextInput(attrs={"placeholder":"ej: 11.111.111-1","id":"rut"}))
     nombres = forms.CharField(label='Nombres' , widget = forms.TextInput(attrs={"placeholder":"Ingrese nombre/s del evaluador"}))
     apellido_p = forms.CharField(label='Apellido Paterno', widget = forms.TextInput(attrs={"placeholder":"Ingrese apellido paterno"}))
     apellido_m = forms.CharField(label='Apellido Materno', widget = forms.TextInput(attrs={"placeholder":"Ingrese apellido materno"}))
@@ -115,7 +113,6 @@ class evaluadorForm(forms.ModelForm):
             'administrador_id_admin': forms.Select(attrs={'class':'form-control'}),
             'cargo_id_cargo': forms.Select(attrs={'class':'form-control'})
         }
-
 
 class actividadForm(forms.ModelForm):
 
@@ -158,7 +155,6 @@ class asignarForm(forms.ModelForm):
             'casos_id_caso': forms.Select(attrs={'class':'form-control'}),
             'evaluado_id_evaluado': forms.Select(attrs={'class':'form-control'}),
         }
-
 
 class SubirvideoForm(forms.ModelForm):
     class meta:

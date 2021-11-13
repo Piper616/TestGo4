@@ -149,3 +149,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = reverse_lazy('seleccion')
 
 LOGOUT_REDIRECT_URL = reverse_lazy('inicio')
+
+# Email 
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_PORT = 587
+
+EMAIL_HOST_USER = 'testgo.proyecto@gmail.com'
+
+EMAIL_HOST_PASSWORD = 'testgo619.'
+
