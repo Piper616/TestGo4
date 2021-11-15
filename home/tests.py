@@ -22,7 +22,4 @@ def send_email():
     except Exception as e:
         print(e)
 
-send_email()
-   
-
 # Create your tests here.

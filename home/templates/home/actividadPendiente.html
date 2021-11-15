@@ -8,19 +8,16 @@
 {% block contenido %}
 
 <div id="tabla">
-    <br>
-    <table>
+    <table id="filtro" class="display">
         <thead>
-            <tr><h2>Evaluados que aun no realizan la actividad</h2></tr>
-        </thead>
-        <br>
-        <tbody>
             <tr>
-                <td>Número del caso</td>
-                <td>Fecha asignación</td>
-                <td>Caso asignado</td>
-                <td>Identificación evaluado</td>
+                <th>Número del caso</th>
+                <th>Fecha asignación</th>
+                <th>Caso asignado</th>
+                <th>Identificación evaluado</th>
             </tr>
+        </thead>
+        <tbody>
             {% for e in pendiente %}
                 {% if e.fecha_realizacion == blank %}
                 <tr>
@@ -35,5 +32,5 @@
     </table>
 </div>
 
-    
+
 {% endblock %}
