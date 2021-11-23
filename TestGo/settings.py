@@ -88,17 +88,13 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '127.0.0.1:1521/xe',
+        'NAME': 'xe',
         'USER': 'chandelle',
         'PASSWORD': '123',
-        'TEST': {
-            'USER': 'default_test',
-            'TBLSPACE': 'default_test_tbls',
-            'TBLSPACE_TMP': 'default_test_tbls_tmp',
-        },
-    },
+        'HOST': '3.208.117.1',
+        'PORT': '1521',
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -152,11 +148,13 @@ LOGOUT_REDIRECT_URL = reverse_lazy('inicio')
 
 # Email 
 
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = 'smtp.googlemail.com'
 
 EMAIL_PORT = 587
 
-EMAIL_HOST_USER = 'testgo.proyecto@gmail.com'
+EMAIL_HOST_USER = 'pruebaemailtestgo@gmail.com'
 
-EMAIL_HOST_PASSWORD = 'testgo619.'
+EMAIL_HOST_PASSWORD = 'testgo123.321.email'
+
+EMAIL_USE_TLS = True
 

@@ -9,8 +9,7 @@ from .models import (Administrador,
                              Casos,
                     EvaluacionCaso,
                           Evaluado,
-                         Evaluador,
-                         Resultado)
+                         Evaluador)
 # Register your models here.
 
 admin.site.register(Administrador)
@@ -24,4 +23,3 @@ admin.site.register(Casos)
 admin.site.register(EvaluacionCaso)
 admin.site.register(Evaluado)
 admin.site.register(Evaluador)
-admin.site.register(Resultado)

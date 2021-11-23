@@ -2,12 +2,12 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-<link rel="stylesheet" href="{% static 'home/css/formulario/estilo_tabla.css' %}">
-
 {% block contenido %}
+<br>
+<p><h2>Evaluaciones pendientes de realización</h2></p>
+<br>
 
-<div id="tabla">
+<div id="tabla" class="table-responsive">
     <table id="filtro" class="display">
         <thead>
             <tr>
@@ -22,15 +22,14 @@
                 {% if e.fecha_realizacion == blank %}
                 <tr>
                     <td>{{e.id_evcaso}}</td>
-                    <td>{{e.fecha_asignacion|date:"d/m/Y"}}</td>
-                    <td>{{e.casos_id_caso}}</td>
                     <td>{{e.evaluado_id_evaluado}}</td>
+                    <td>{{e.fecha_asignacion|date:"d/m/Y"}}</td>
+                    <td>{{e.casos_id_caso}}</td>          
                 </tr> 
                 {% endif %}
             {% endfor %}
         </tbody>
     </table>
 </div>
-
 
 {% endblock %}

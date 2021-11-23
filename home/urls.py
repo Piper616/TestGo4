@@ -12,12 +12,12 @@ router.register('Evaluador', EvaluadorViewset)
 
 urlpatterns = [
     #------Usuario-------
+    path('correoEvaluado/', views.correoEvaluado, name='correoEvaluado'),
     path('login/', views.inicio, name='login'),
     path('loginA/', views.loginA, name='loginA'),
     path('loginE/', views.loginE, name='loginE'),
     path('index/', views.index, name='index'),
     path('caso1/', views.caso1, name="caso1"),
-    path('caso2/', views.caso2, name="caso2"),
     path('vistaA/', views.vistaA, name='vistaA'),
     path('vistaE/', views.vistaE, name='vistaE'),
     path('prueba/', views.prueba, name='prueba'),
@@ -35,5 +35,5 @@ urlpatterns = [
     path('revisionPendiente/', views.revisionPendiente, name='revisionPendiente'),
     path('actividadRealizada/', views.actividadRealizada, name='actividadRealizada'),
     path('api/', include(router.urls)),
-    path('probar_rut/', views.probar_rut, name='probar_rut'),
+    path('probar_rut/', views.probar_rut, name='probar_rut')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

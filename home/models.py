@@ -20,10 +20,10 @@ class Administrador(models.Model):
     fec_nac = models.CharField(max_length=20, blank=True, null=True)
     email_empresa = models.CharField(max_length=50)
     contraseña = models.CharField(unique=True, max_length=50)
-    cargo_id_cargo = models.ForeignKey('Cargo', models.DO_NOTHING, db_column='cargo_id_cargo')
 
     def __str__(self):
-        return '{}'.format(self.id_admin)
+        cadena = self.nombres + " " + self.apellido_p + " " + self.apellido_m
+        return cadena
 
     class Meta:
         managed = False
@@ -159,7 +159,8 @@ class Cargo(models.Model):
     detalle_cargo = models.CharField(unique=True, max_length=500)
 
     def __str__(self):
-        return '{}'.format(self.id_cargo)
+        cadena = self.detalle_cargo
+        return cadena
 
     class Meta:
         managed = False
@@ -168,13 +169,14 @@ class Cargo(models.Model):
 
 class Casos(models.Model):
     id_caso = models.BigIntegerField(primary_key=True)
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=100)
     descripcion_caso = models.CharField(max_length=500)
     foto = models.BinaryField(blank=True, null=True)
     pdf = models.BinaryField(blank=True, null=True)
 
     def __str__(self):
-        return '{}'.format(self.id_caso)
+        cadena = self.nombre
+        return cadena
 
     class Meta:
         managed = False
@@ -242,10 +244,15 @@ class EvaluacionCaso(models.Model):
     evaluado_id_evaluado = models.ForeignKey('Evaluado', models.DO_NOTHING, db_column='evaluado_id_evaluado')
     fecha_asignacion = models.DateField()
     fecha_realizacion = models.DateField(blank=True, null=True)
-    video_respuesta = models.FileField(upload_to="media/",blank=True, null=True)
+    video_respuesta = models.BinaryField(blank=True, null=True)
+    evaluador_id_evaluador = models.ForeignKey('Evaluador', models.DO_NOTHING, db_column='evaluador_id_evaluador')
+    descripcion = models.CharField(max_length=500, blank=True, null=True)
+    fecha_revision = models.DateField(blank=True, null=True)
+    admin_id_admin = models.ForeignKey(Administrador, models.DO_NOTHING, db_column='admin_id_admin')
 
     def __str__(self):
-        return '{}'.format(self.id_evcaso)
+        cadena = self.id_evcaso
+        return cadena
 
     class Meta:
         managed = False
@@ -260,15 +267,17 @@ class Evaluado(models.Model):
     apellido_m = models.CharField(max_length=50)
     num_cel = models.BigIntegerField(unique=True)
     email_personal = models.CharField(max_length=25)
-    direccion = models.CharField(max_length=100, blank=True, null=True)
-    fec_nac = models.CharField(max_length=20, blank=True, null=True)
     empresa = models.CharField(max_length=50)
     email_empresa = models.CharField(unique=True, max_length=50)
     contraseña = models.CharField(unique=True, max_length=50)
     cargo_id_cargo = models.ForeignKey(Cargo, models.DO_NOTHING, db_column='cargo_id_cargo')
+    nombre_jefe = models.CharField(max_length=100, blank=True, null=True)
+    cel_jefe = models.CharField(max_length=15, blank=True, null=True)
+    email_jefe = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
-        return '{}'.format(self.id_evaluado)
+        cadena = self.nombres + " " + self.apellido_p + " " + self.apellido_m
+        return cadena
 
     class Meta:
         managed = False
@@ -283,31 +292,13 @@ class Evaluador(models.Model):
     apellido_m = models.CharField(max_length=50)
     num_cel = models.BigIntegerField(unique=True)
     email_personal = models.CharField(unique=True, max_length=25)
-    direccion = models.CharField(max_length=100, blank=True, null=True)
-    fec_nac = models.CharField(max_length=20, blank=True, null=True)
-    administrador_id_admin = models.ForeignKey(Administrador, models.DO_NOTHING, db_column='administrador_id_admin')
     email_empresa = models.CharField(unique=True, max_length=50)
     contraseña = models.CharField(unique=True, max_length=50)
-    cargo_id_cargo = models.ForeignKey(Cargo, models.DO_NOTHING, db_column='cargo_id_cargo')
 
     def __str__(self):
-        return '{}'.format(self.id_evaluador)
+        cadena = self.nombres + " " + self.apellido_p + " " + self.apellido_m
+        return cadena
 
     class Meta:
         managed = False
         db_table = 'evaluador'
-
-
-class Resultado(models.Model):
-    id_resultado = models.BigIntegerField(primary_key=True)
-    descripcion = models.CharField(max_length=500)
-    evaluador_id_evaluador = models.ForeignKey(Evaluador, models.DO_NOTHING, db_column='evaluador_id_evaluador')
-    evaluacion_caso_id_evcaso = models.ForeignKey(EvaluacionCaso, models.DO_NOTHING, db_column='evaluacion_caso_id_evcaso')
-    fecha_revision = models.DateField()
-
-    def __str__(self):
-        return '{}'.format(self.id_resultado)
-
-    class Meta:
-        managed = False
-        db_table = 'resultado'

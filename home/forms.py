@@ -29,11 +29,12 @@ class evaluadoForm(forms.ModelForm):
     apellido_m = forms.CharField(label='Apellido Materno', widget = forms.TextInput(attrs={"placeholder":"Ingrese apellido materno"}))
     num_cel = forms.CharField(label='Número de celular', widget = forms.TextInput(attrs={"placeholder":"Ej: 9 999 99 999"}))
     email_personal = forms.CharField(label='Email Personal', widget = forms.TextInput(attrs={"placeholder":"ej: persona@personal.com"}))
-    direccion = forms.CharField(label='Dirección', widget = forms.TextInput(attrs={"placeholder":"Ingres dirección del evaluado"}))
-    fec_nac = forms.DateField(label='Fecha de Nacimiento', widget = DateInput)
     empresa = forms.CharField(label='Empresa perteneciente', widget = forms.TextInput(attrs={"placeholder":"Ingrese empresa del evaluado"}))
-    email_empresa = forms.CharField(label='Email contacto empresa', widget = forms.TextInput(attrs={"placeholder":"ej: persona@empresa.cl"}))
+    email_empresa = forms.CharField(label='Email contacto empresa', widget = forms.TextInput(attrs= {"placeholder":"ej: persona@empresa.cl"}))
     contraseña = forms.CharField(label='Contraseña', widget = forms.TextInput(attrs={"placeholder":"Ingrese contraseña para ingreso"}))
+    nombre_jefe = forms.CharField(label='Nombre del Jefe', widget = forms.TextInput(attrs={"placeholder":"Ingrese nombre del jefe"})) 
+    cel_jefe = forms.CharField(label='Celular del Jefe', widget = forms.TextInput(attrs={"placeholder":"Ingrese celular del jefe"}))
+    email_jefe = forms.CharField(label='Email del Jefe', widget = forms.TextInput(attrs={"placeholder":"ej: jefe@empresa.cl"}))
 
     class Meta:
         model = Evaluado
@@ -46,12 +47,13 @@ class evaluadoForm(forms.ModelForm):
             'apellido_m',
             'num_cel',
             'email_personal',
-            'direccion',
-            'fec_nac',
             'empresa',
             'email_empresa',
             'contraseña',
-            'cargo_id_cargo'
+            'cargo_id_cargo',
+            'nombre_jefe',
+            'cel_jefe',
+            'email_jefe'
         ]
 
         labels = {
@@ -80,8 +82,6 @@ class evaluadorForm(forms.ModelForm):
     apellido_m = forms.CharField(label='Apellido Materno', widget = forms.TextInput(attrs={"placeholder":"Ingrese apellido materno"}))
     num_cel = forms.CharField(label='Número de celular', widget = forms.NumberInput(attrs={"placeholder":"ej: 9 999 999 99"}))
     email_personal = forms.CharField(label='Email Personal', widget = forms.TextInput(attrs={"placeholder":"ej: ejemplo@ejemplo.com"}))
-    direccion = forms.CharField(label='Dirección', widget = forms.TextInput(attrs={"placeholder":"Ingrese su Dirección actual"}))
-    fec_nac = forms.DateField(label='Fecha de Nacimiento', widget = DateInput)
     email_empresa = forms.CharField(label='Email empresa', widget = forms.TextInput(attrs={"placeholder":"ej: empresa@ejemplo.com"}))
     contraseña = forms.CharField(label='Contraseña', widget = forms.TextInput(attrs={"placeholder":"Ingrese contraseña"}))
 
@@ -96,23 +96,9 @@ class evaluadorForm(forms.ModelForm):
             'apellido_m',
             'num_cel',
             'email_personal',
-            'direccion',
-            'fec_nac',
-            'administrador_id_admin',
             'email_empresa',
             'contraseña',
-            'cargo_id_cargo'
         ]
-
-        labels = {
-            'administrados_id_admin' : 'Administrador a cargo',
-            'cargo_id_cargo' : 'Cargo actual'
-        }
-    
-        widgets = {
-            'administrador_id_admin': forms.Select(attrs={'class':'form-control'}),
-            'cargo_id_cargo': forms.Select(attrs={'class':'form-control'})
-        }
 
 class actividadForm(forms.ModelForm):
 
@@ -143,17 +129,23 @@ class asignarForm(forms.ModelForm):
             'id_evcaso',
             'casos_id_caso',
             'evaluado_id_evaluado',
-            'fecha_asignacion'
+            'fecha_asignacion',
+            'evaluador_id_evaluador',
+            'admin_id_admin'
         ]
 
         labels = {
             'casos_id_caso': 'Número del Caso',
-            'evaluado_id_evaluado': 'Identficación Evaluado'
+            'evaluado_id_evaluado': 'Evaluado',
+            'evaluador_id_evaluador': 'Evaluador',
+            'admin_id_admin': 'Administrador'
         }
 
         widgets = {
             'casos_id_caso': forms.Select(attrs={'class':'form-control'}),
             'evaluado_id_evaluado': forms.Select(attrs={'class':'form-control'}),
+            'evaluador_id_evaluador': forms.Select(attrs={'class':'form-control'}),
+            'admin_id_admin': forms.Select(attrs={'class':'form-control'})
         }
 
 class SubirvideoForm(forms.ModelForm):

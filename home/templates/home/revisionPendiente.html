@@ -2,30 +2,27 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-<link rel="stylesheet" href="{% static 'home/css/formulario/estilo_tabla.css' %}">
-
 {% block contenido %}
+<br>
+<p><h2>Evaluaciones pendientes de revisión</h2></p>
+<br>
 
-<div id="tabla">
-    <br>
-    <table>
+<div id="tabla" class="table-responsive">
+    <table id="filtro" class="display">
         <thead>
-            <tr><h2>Evaluaciones pendientes de revisión</h2></tr>
-        </thead>
-        <br>
-        <tbody>
             <tr>
-                <td>Número de evaluación</td>
-                <td>Evaluador a cargo</td>
-                <td>Número del caso</td>
+                <th>Número de evaluación</th>
+                <th>Evaluador a cargo</th>
+                <th>Caso asignado</th>
             </tr>
+        </thead>
+        <tbody>
             {% for e in revision %}
-                {% if e.fecha_revision == blank %}
+                {% if e.fecha_revision == blank and e.fecha_realizacion != blank %}
                 <tr>
-                    <td>{{e.id_resultado}}</td>
+                    <td>{{e.id_evcaso}}</td>
                     <td>{{e.evaluador_id_evaluador}}</td>
-                    <td>{{e.evaluacion_caso_id_evcaso}}</td>
+                    <td>{{e.casos_id_caso}}</td>
                 </tr>
                 {% endif %}   
             {% endfor %}

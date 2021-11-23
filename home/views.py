@@ -11,8 +11,7 @@ from .models import (Administrador,
                              Casos,
                     EvaluacionCaso,
                           Evaluado,
-                         Evaluador,
-                         Resultado)
+                         Evaluador)
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError, models
 from django.urls import reverse
@@ -22,6 +21,9 @@ from rest_framework import viewsets
 from .serializers import EvaluadoSerializer, EvaluadorSerializer
 from .forms import *
 import datetime
+from django.template.loader import get_template
+from django.core.mail import EmailMultiAlternatives
+from django.conf import settings
 
 
 # Create your views here.
@@ -120,10 +122,28 @@ def cuestionario(request):
 def final(request):
     return render(request, 'home/final.html')
 
-def creaEvaluado(request):
+def send_email(email_empresa,contraseña):
+    context = {'email_empresa':email_empresa, 'contraseña': contraseña}
+    template = get_template('home/correoEvaluado.html')
+    content = template.render(context)
 
+    email = EmailMultiAlternatives(
+        'ThinkGo',
+        'Plataforma TestGo',
+        settings.EMAIL_HOST_USER,
+        [email_empresa]
+    )
+
+    email.attach_alternative(content, 'text/html')
+    email.send()
+
+def creaEvaluado(request):
     if request.method == 'POST':
         form = evaluadoForm(request.POST)
+        email_empresa = request.POST.get('email_empresa')
+        contraseña = request.POST.get('contraseña')
+        send_email(email_empresa,contraseña)
+        
         if form.is_valid():
             form.save()
             messages.success(request, "Guardado Correctamente")
@@ -131,7 +151,7 @@ def creaEvaluado(request):
     else:
         form = evaluadoForm()
 
-    return render(request, 'home/creaEvaluado.html', {'form' : form})
+    return render(request, 'home/creaEvaluado.html', {'form' : form })
 
 def creaEvaluador(request):
 
@@ -183,11 +203,11 @@ def actividadPendiente(request):
     return render(request, 'home/actividadPendiente.html', {"pendiente" : actividadPendiente})
 
 def revisionPendiente(request):
-    revisionPendiente = Resultado.objects.all()
+    revisionPendiente = EvaluacionCaso.objects.all()
     return render(request, 'home/revisionPendiente.html', {"revision" : revisionPendiente})
 
 def actividadRealizada(request):
-    actividadRealizada = Resultado.objects.all()
+    actividadRealizada = EvaluacionCaso.objects.all()
     return render(request, 'home/actividadRealizada.html', {"realizada" : actividadRealizada})
 
 class EvaluadoViewset(viewsets.ModelViewSet):
@@ -203,3 +223,6 @@ def prueba(request):
 
 def probar_rut(request):
     return render(request, "home/probar_rut.html")
+
+def correoEvaluado(request):
+    return render(request, "home/correoEvaluado.html")
