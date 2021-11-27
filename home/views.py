@@ -122,7 +122,7 @@ def cuestionario(request):
 def final(request):
     return render(request, 'home/final.html')
 
-def send_email(email_empresa,contraseña):
+def enviarCorreoEvaluado(email_empresa,contraseña):
     context = {'email_empresa':email_empresa, 'contraseña': contraseña}
     template = get_template('home/correoEvaluado.html')
     content = template.render(context)
@@ -142,7 +142,7 @@ def creaEvaluado(request):
         form = evaluadoForm(request.POST)
         email_empresa = request.POST.get('email_empresa')
         contraseña = request.POST.get('contraseña')
-        send_email(email_empresa,contraseña)
+        enviarCorreoEvaluado(email_empresa,contraseña)
         
         if form.is_valid():
             form.save()
@@ -153,10 +153,29 @@ def creaEvaluado(request):
 
     return render(request, 'home/creaEvaluado.html', {'form' : form })
 
+def enviarCorreoEvaluador(email_empresa,contraseña):
+    context = {'email_empresa':email_empresa, 'contraseña': contraseña}
+    template = get_template('home/correoEvaluador.html')
+    content = template.render(context)
+
+    email = EmailMultiAlternatives(
+        'ThinkGo',
+        'Plataforma TestGo',
+        settings.EMAIL_HOST_USER,
+        [email_empresa]
+    )
+
+    email.attach_alternative(content, 'text/html')
+    email.send()
+
 def creaEvaluador(request):
 
     if request.method == 'POST':
         form = evaluadorForm(request.POST)
+        email_empresa = request.POST.get('email_empresa')
+        contraseña = request.POST.get('contraseña')
+        enviarCorreoEvaluador(email_empresa,contraseña)
+
         if form.is_valid():
             form.save()
             messages.success(request, "Guardado Correctamente")
@@ -209,6 +228,68 @@ def revisionPendiente(request):
 def actividadRealizada(request):
     actividadRealizada = EvaluacionCaso.objects.all()
     return render(request, 'home/actividadRealizada.html', {"realizada" : actividadRealizada})
+
+def editarEvaluado(request):
+    editarEvaluado = Evaluado.objects.all()
+    return render(request, 'home/editarEvaluado.html', {"editarEvaluado" : editarEvaluado})
+
+def actualizarEvaluado(request,id_evaluado):
+    evaluado = Evaluado.objects.get(id_evaluado=id_evaluado)
+    form = evaluadoForm(instance=evaluado)
+
+    if request.method == 'POST':
+        form = evaluadoForm(request.POST, instance=evaluado)
+        email_empresa = request.POST.get('email_empresa')
+        contraseña = request.POST.get('contraseña')
+        enviarCorreoEvaluado(email_empresa,contraseña)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Guardado Correctamente")
+            return redirect('editarEvaluado')
+   
+    context = {'form': form}
+    return render(request, 'home/actualizarEvaluado.html',context)
+
+def eliminarEvaluado(request, id_evaluado):
+    evaluado = Evaluado.objects.get(id_evaluado=id_evaluado)
+    
+    if request.method == "POST": 
+        evaluado.delete()
+        return redirect('editarEvaluado')
+
+    return render(request, 'home/eliminarEvaluado.html',{'evaluado':evaluado})
+
+def editarEvaluador(request):
+    editarEvaluador = Evaluador.objects.all()
+    return render(request, 'home/editarEvaluador.html', {"editarEvaluador" : editarEvaluador})
+
+def actualizarEvaluador(request,id_evaluador):
+    evaluador = Evaluador.objects.get(id_evaluador=id_evaluador)
+    form = evaluadorForm(instance=evaluador)
+
+    if request.method == 'POST':
+        form = evaluadorForm(request.POST, instance=evaluador)
+        email_empresa = request.POST.get('email_empresa')
+        contraseña = request.POST.get('contraseña')
+        enviarCorreoEvaluador(email_empresa,contraseña)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Guardado Correctamente")
+            return redirect('editarEvaluador')
+   
+    context = {'form': form}
+    return render(request, 'home/actualizarEvaluador.html',context)
+
+def eliminarEvaluador(request, id_evaluador):
+    evaluador = Evaluador.objects.get(id_evaluador=id_evaluador)
+    
+    if request.method == "POST": 
+        evaluador.delete()
+        return redirect('editarEvaluador')
+
+    return render(request, 'home/eliminarEvaluador.html',{'evaluador':evaluador})
 
 class EvaluadoViewset(viewsets.ModelViewSet):
     queryset = Evaluado.objects.all()

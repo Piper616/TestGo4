@@ -1,0 +1,40 @@
+{% extends 'home/baseTabla.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block contenido %}
+<br>
+<p><h2>Modificar datos de los Evaluadores</h2></p>
+<br>
+
+<div id="tabla" class="table-responsive">
+    <table id="filtro" class="table table-striped table-bordered" style="width: 100%;">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in editarEvaluador %}
+                <tr>
+                    <td>{{e.id_evaluador}}</td>
+                    <td>{{e.nombres}}</td>
+                    <td>{{e.apellido_p}}</td>
+                    <td>{{e.apellido_m}}</td>
+                    <td>
+                        <a class="btn btn-sm btn-info" href="/actualizarEvaluador/{{e.id_evaluador}}">Editar</a>
+                        <a class="btn btn-sm btn-danger"href="/eliminarEvaluador/{{e.id_evaluador}}">Eliminar</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'home/js/crudTabla.js' %}"></script>
+{% endblock %}

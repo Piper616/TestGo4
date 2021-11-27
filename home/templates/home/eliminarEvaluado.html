@@ -1,0 +1,16 @@
+{% extends 'home/baseFormulario.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block contenido %}
+
+<p>¿Esta seguro de eliminar al Evaluado {{evaluado.nombres}} {{evaluado.apellido_p}} {{evaluado.apellido_m}}?</p>
+
+<form action="/eliminarEvaluado/{{evaluado.id_evaluado}}" method="POST">
+
+    {% csrf_token %}
+    <button class="btn btn-primary" id="aceptar" type = 'submit'>Aceptar</button>
+
+    <a class="btn btn-danger" href="{% url 'editarEvaluado' %}">Cancelar</a>
+</form>
+{% endblock %}

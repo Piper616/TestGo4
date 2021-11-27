@@ -266,7 +266,7 @@ class Evaluado(models.Model):
     apellido_p = models.CharField(max_length=50)
     apellido_m = models.CharField(max_length=50)
     num_cel = models.BigIntegerField(unique=True)
-    email_personal = models.CharField(max_length=25)
+    email_personal = models.CharField(max_length=50)
     empresa = models.CharField(max_length=50)
     email_empresa = models.CharField(unique=True, max_length=50)
     contraseña = models.CharField(unique=True, max_length=50)
@@ -291,7 +291,7 @@ class Evaluador(models.Model):
     apellido_p = models.CharField(max_length=50)
     apellido_m = models.CharField(max_length=50)
     num_cel = models.BigIntegerField(unique=True)
-    email_personal = models.CharField(unique=True, max_length=25)
+    email_personal = models.CharField(unique=True, max_length=50)
     email_empresa = models.CharField(unique=True, max_length=50)
     contraseña = models.CharField(unique=True, max_length=50)
 

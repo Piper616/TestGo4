@@ -34,6 +34,12 @@ urlpatterns = [
     path('actividadPendiente/', views.actividadPendiente, name='actividadPendiente'),
     path('revisionPendiente/', views.revisionPendiente, name='revisionPendiente'),
     path('actividadRealizada/', views.actividadRealizada, name='actividadRealizada'),
+    path('editarEvaluado/', views.editarEvaluado, name='editarEvaluado'),
+    path('actualizarEvaluado/<int:id_evaluado>', views.actualizarEvaluado, name='actualizarEvaluado'),
+    path('eliminarEvaluado/<int:id_evaluado>', views.eliminarEvaluado, name='eliminarEvaluado'),
+    path('editarEvaluador/', views.editarEvaluador, name='editarEvaluador'),
+    path('actualizarEvaluador/<int:id_evaluador>', views.actualizarEvaluador, name='actualizarEvaluador'),
+    path('eliminarEvaluador/<int:id_evaluador>', views.eliminarEvaluador, name='eliminarEvaluador'),
     path('api/', include(router.urls)),
     path('probar_rut/', views.probar_rut, name='probar_rut')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
