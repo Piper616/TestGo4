@@ -1,17 +1,7 @@
 from django.core.checks import messages
 from django.http import HttpResponse, HttpResponseRedirect,Http404,JsonResponse
 from django.shortcuts import render, redirect
-from .models import (Administrador,
-                          AudAdmin,
-                          AudCargo,
-                          AudCasos,
-                       AudEvaluado,
-                      AudEvaluador,
-                             Cargo,
-                             Casos,
-                    EvaluacionCaso,
-                          Evaluado,
-                         Evaluador)
+
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError, models
 from django.urls import reverse
@@ -307,3 +297,11 @@ def probar_rut(request):
 
 def correoEvaluado(request):
     return render(request, "home/correoEvaluado.html")
+
+def evaluacionesPendientes(request):
+    evaluacion = EvaluacionCaso.objects.all()
+    return render(request, "home/evaluacionesPendientes.html",{'evaluacion':evaluacion})
+
+def notas(request):
+    evaluacion = EvaluacionCaso.objects.all()
+    return render(request, "home/notas.html",{'evaluacion':evaluacion})

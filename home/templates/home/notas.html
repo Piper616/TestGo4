@@ -1,0 +1,70 @@
+{% extends 'home/baseVistasEvaluador.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block contenido %}
+<br>
+<p><h2>Evaluaciones pendientes de revisión</h2></p>
+<br>
+
+<div id="tabla" class="table-responsive">
+    <table id="filtro" class="display">
+        <thead>
+            <tr>
+                <th>Número de evaluación</th>
+                <th>Evaluador a cargo</th>
+                <th>Caso asignado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for e in revision %}
+                {% if e.fecha_revision == blank and e.fecha_realizacion != blank %}
+                <tr>
+                    <td>{{e.id_evcaso}}</td>
+                    <td>{{e.evaluador_id_evaluador}}</td>
+                    <td>{{e.casos_id_caso}}</td>
+                </tr>
+                {% endif %}   
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+ 
+{% endblock %}
+
+Administrador
+
+def __str__(self):
+        cadena = self.nombres + " " + self.apellido_p + " " + self.apellido_m
+        return cadena
+
+Cargo
+
+def __str__(self):
+        cadena = self.detalle_cargo
+        return cadena
+
+casos
+
+def __str__(self):
+        cadena = self.nombre
+        return cadena
+
+Evaluacion Caso
+
+def __str__(self):
+        cadena = self.id_evcaso
+        return cadena
+
+Evaluado
+
+def __str__(self):
+        cadena = self.nombres + " " + self.apellido_p + " " + self.apellido_m
+        return cadena
+
+Evaluador
+
+def __str__(self):
+        cadena = self.nombres + " " + self.apellido_p + " " + self.apellido_m
+        return cadena
+

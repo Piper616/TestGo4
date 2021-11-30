@@ -3,7 +3,7 @@ from django import forms
 from django.core.exceptions import ViewDoesNotExist
 from django.db.models import fields
 from django.forms import widgets
-from .models import *
+
 from .views import *
 import datetime
 from django.forms import ValidationError
