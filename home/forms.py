@@ -3,7 +3,7 @@ from django import forms
 from django.core.exceptions import ViewDoesNotExist
 from django.db.models import fields
 from django.forms import widgets
-
+from .models import *
 from .views import *
 import datetime
 from django.forms import ValidationError
@@ -152,3 +152,34 @@ class SubirvideoForm(forms.ModelForm):
     class meta:
         model = EvaluacionCaso
         fields = 'video_respuesta'
+
+class evaluacionForm(forms.ModelForm):
+
+    id_evcaso = forms.CharField(label='Identificación', widget = forms.TextInput(attrs={}))
+    casos_id_caso = forms.CharField(label='Identificación', widget = forms.TextInput(attrs={}))
+    evaluado_id_evaluado = forms.CharField(label='Identificación', widget = forms.TextInput(attrs={}))
+    fecha_asignacion = forms.CharField(label='Identificación', widget = forms.TextInput(attrs={}))
+    fecha_realizacion = forms.CharField(label='Identificación', widget = forms.TextInput(attrs={}))
+    evaluador_id_evaluador = forms.CharField(label='Identificación', widget = forms.TextInput(attrs={}))
+    descripcion = forms.CharField(label='Identificación', widget = forms.TextInput(attrs={}))
+    fecha_revision = forms.DateField(label='Fecha de Asignación', widget = DateInput, initial=fecha_hoy)
+    admin_id_admin = forms.CharField(label='Identificación', widget = forms.TextInput(attrs={}))
+    nota = forms.CharField(label='Identificación', widget = forms.TextInput(attrs={}))
+    video_respuesta = forms.CharField(label='Identificación', widget = forms.TextInput(attrs={}))
+
+    class meta:
+        model = EvaluacionCaso
+
+        fields = [
+            'id_evcaso',
+            'casos_id_caso',
+            'evaluado_id_evaluado',
+            'fecha_asignacion',
+            'fecha_realizacion',
+            'evaluador_id_evaluador',
+            'descripcion',
+            'fecha_revision',
+            'admin_id_admin',
+            'nota',
+            'video_respuesta'
+        ]

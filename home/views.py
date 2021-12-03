@@ -1,7 +1,17 @@
 from django.core.checks import messages
 from django.http import HttpResponse, HttpResponseRedirect,Http404,JsonResponse
 from django.shortcuts import render, redirect
-
+from .models import (Administrador,
+                          AudAdmin,
+                          AudCargo,
+                          AudCasos,
+                       AudEvaluado,
+                      AudEvaluador,
+                             Cargo,
+                             Casos,
+                    EvaluacionCaso,
+                          Evaluado,
+                         Evaluador)
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError, models
 from django.urls import reverse
@@ -300,8 +310,24 @@ def correoEvaluado(request):
 
 def evaluacionesPendientes(request):
     evaluacion = EvaluacionCaso.objects.all()
-    return render(request, "home/evaluacionesPendientes.html",{'evaluacion':evaluacion})
+    usuario = Evaluado.objects.all()
+    return render(request, "home/evaluacionesPendientes.html",{'evaluacion':evaluacion,'usuario':usuario})
 
 def notas(request):
     evaluacion = EvaluacionCaso.objects.all()
-    return render(request, "home/notas.html",{'evaluacion':evaluacion})
+    usuario = Evaluado.objects.all()
+    return render(request, "home/notas.html",{'evaluacion':evaluacion,'usuario':usuario})
+
+def evaluar(request, id_evcaso):
+    evalua = EvaluacionCaso.objects.get(id_evcaso=id_evcaso)
+    form = evaluacionForm(instance=evalua)
+
+    if request.method == 'POST':
+        form = evaluacionForm(request.POST, instance=evalua)
+        
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Guardado Correctamente")
+            return redirect('editarEvaluador')
+
+    return render(request, 'home/eliminarEvaluador.html',{'form':form})

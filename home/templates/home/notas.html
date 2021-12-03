@@ -12,59 +12,22 @@
         <thead>
             <tr>
                 <th>Número de evaluación</th>
-                <th>Evaluador a cargo</th>
+                <th>Evaluado</th>
                 <th>Caso asignado</th>
+                <th>Nota</th>
             </tr>
         </thead>
         <tbody>
-            {% for e in revision %}
-                {% if e.fecha_revision == blank and e.fecha_realizacion != blank %}
+            {% for e in evaluacion %}
                 <tr>
                     <td>{{e.id_evcaso}}</td>
                     <td>{{e.evaluador_id_evaluador}}</td>
                     <td>{{e.casos_id_caso}}</td>
+                    <td>{{e.nota}}</td>
                 </tr>
-                {% endif %}   
             {% endfor %}
         </tbody>
     </table>
 </div>
  
 {% endblock %}
-
-Administrador
-
-def __str__(self):
-        cadena = self.nombres + " " + self.apellido_p + " " + self.apellido_m
-        return cadena
-
-Cargo
-
-def __str__(self):
-        cadena = self.detalle_cargo
-        return cadena
-
-casos
-
-def __str__(self):
-        cadena = self.nombre
-        return cadena
-
-Evaluacion Caso
-
-def __str__(self):
-        cadena = self.id_evcaso
-        return cadena
-
-Evaluado
-
-def __str__(self):
-        cadena = self.nombres + " " + self.apellido_p + " " + self.apellido_m
-        return cadena
-
-Evaluador
-
-def __str__(self):
-        cadena = self.nombres + " " + self.apellido_p + " " + self.apellido_m
-        return cadena
-

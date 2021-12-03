@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 from django.urls import reverse_lazy
 from pathlib import Path
+from decouple import config
 
 
 
@@ -150,11 +151,11 @@ LOGOUT_REDIRECT_URL = reverse_lazy('inicio')
 
 EMAIL_HOST = 'smtp.googlemail.com'
 
-EMAIL_PORT = 587
+EMAIL_PORT = config('EMAIL_PORT')
 
-EMAIL_HOST_USER = 'pruebaemailtestgo@gmail.com'
+EMAIL_HOST_USER = 'testgo.noreply@gmail.com'
 
-EMAIL_HOST_PASSWORD = 'testgo123.321.email'
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 EMAIL_USE_TLS = True
 

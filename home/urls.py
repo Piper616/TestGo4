@@ -42,6 +42,7 @@ urlpatterns = [
     path('editarEvaluador/', views.editarEvaluador, name='editarEvaluador'),
     path('actualizarEvaluador/<int:id_evaluador>', views.actualizarEvaluador, name='actualizarEvaluador'),
     path('eliminarEvaluador/<int:id_evaluador>', views.eliminarEvaluador, name='eliminarEvaluador'),
+    path('evaluar/<int:id_evcaso>', views.evaluar, name='evaluar'),
     path('api/', include(router.urls)),
     path('probar_rut/', views.probar_rut, name='probar_rut')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

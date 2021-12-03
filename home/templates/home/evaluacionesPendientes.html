@@ -4,27 +4,28 @@
 
 {% block contenido %}
 <br>
-<p><h2>Evaluaciones pendientes de revisión</h2></p>
-<br>
+<p><h2>Evaluaciones pendientes de revisión: {{request.session.email}}</h2></p>
 
 <div id="tabla" class="table-responsive">
     <table id="filtro" class="display">
         <thead>
             <tr>
                 <th>Número de evaluación</th>
-                <th>Evaluador a cargo</th>
+                <th>Evaluado</th>
                 <th>Caso asignado</th>
+                <th>Fecha de Realización</th>
+                <th>Respuesta</th>
             </tr>
         </thead>
         <tbody>
-            {% for e in revision %}
-                {% if e.fecha_revision == blank and e.fecha_realizacion != blank %}
+            {% for e in evaluacion %}
                 <tr>
                     <td>{{e.id_evcaso}}</td>
-                    <td>{{e.evaluador_id_evaluador}}</td>
+                    <td>{{e.evaluado_id_evaluado}}</td>
                     <td>{{e.casos_id_caso}}</td>
+                    <td>{{e.fecha_realizacion}}</td>
+                    <td><a class='btn btn-success' href="/evaluar/{{e.id_evcaso}}">Evaluar</a></td>
                 </tr>
-                {% endif %}   
             {% endfor %}
         </tbody>
     </table>
